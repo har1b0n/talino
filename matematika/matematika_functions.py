@@ -5,7 +5,6 @@ def clear_console():
     #clear the console
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
 def welcome_screen():
     clear_console() 
     launch_patterns = [
@@ -36,7 +35,7 @@ def welcome_screen():
         clear_console()
     
     print(fancy_text)
-    time.sleep(3)  
+    time.sleep(1)  
 
 def main_menu():
     fancy_mainmenu = """
