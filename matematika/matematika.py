@@ -1,39 +1,38 @@
 import os
 import random
 import datetime
+import time
 import re
+from matematika_functions import clear_console,welcome_screen,main_menu,goodbye_screen    
 
-os.system('cls' if os.name == 'nt' else 'clear')
+welcome_screen()
+
 yourname = input("\033[1;37mEnter your name: ").strip()
 sanitized_name = re.sub(r'[^\w\-_.]', '_', yourname)
 
 exit = 'n'
 while exit == 'n':
 
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    print(f"\n\033[1;37m Welcome \033[1;31m{sanitized_name}\033[1;37m,choose from the following option.")
-    print("1 - Addition")
-    print("2 - Substraction")
-    print("3 - Multiplication")
-    print("4 - Division")
-    print("5 - Counting")
-    try:
-        choice1 = int(input("Enter your choice: "))
-    except ValueError:
-        print("\033[1;31mInvalid entry. Please enter a valid number.")
-        continue  # Re-loop to show the menu again
+    clear_console()
+    choice1 = main_menu()
+    
 
     match choice1:
         case 1:
-            os.system('cls' if os.name == 'nt' else 'clear')
-
-            print("1 - Beginner (0-5)")
-            print("2 - Easy (0-10)")
-            print("3 - Normal (0-100)")
-            print("4 - Hard (0-1000)")
+            clear_console()
+            fancy_level = """
+            \033[1;31m===============================================
+            \033[1;36m              LEVEL
+            \033[1;31m===============================================
+            \033[1;32m 1 - Beginner (0-5)
+            \033[1;32m 2 - Easy (0-10)
+            \033[1;32m 3 - Normal (0-100)
+            \033[1;32m 4 - Hard (0-1000)
+            \033[1;31m===============================================
+            """
+            print(fancy_level)
             try:
-                level = int(input("Enter your choice: "))
+                level = int(input("\033[1;37mEnter your choice: "))
             except ValueError:
                 print("\033[1;31mInvalid entry. Please enter a valid number.")
                 continue  # Re-loop to show the menu again
@@ -48,7 +47,7 @@ while exit == 'n':
                 #Configuration
                 startTime = datetime.datetime.now()
                 hs = 0
-                x = 20
+                x = 10
                 y = 0
                 n = 0
                 
@@ -69,19 +68,21 @@ while exit == 'n':
                         print("\033[1;31mInvalid choice. Please choose a valid option.")
 
                 for counter in range(x):
+                    clear_console()
                     a = random.randint(l, h)
                     b = random.randint(l, h)
-                    print("\n\033[1;37m**********************************")
+                    print(f"\033[1;34m Score: {y}/{counter}")
+                    print("\n\033[1;37m===============================================")
                     print(f"  {a} + {b} ")
                     correctAnswer = a + b
-                    print("\033[1;37m**********************************\033[1;30m")
+                    print("\033[1;37m===============================================")
 
                     # Start tracking the time
                     questionStart = datetime.datetime.now()
                     answer = None
                     while answer is None:
                         try:
-                            answer = int(input("Enter your answer: "))
+                            answer = int(input("\033[1;37m Enter your answer: "))
                         except ValueError:
                             print("\033[1;31m Invalid Entry \033[1;30m")
                      # End tracking the time and calculate the duration
@@ -96,17 +97,20 @@ while exit == 'n':
                         print(f"\033[1;31m You are wrong. The answer is {correctAnswer}")
                         n += 1
                         f1.write(f"{yourname},Question {counter+1},{a} + {b} = {answer},Wrong,{timeTaken}\n")
-                    print(f"\033[1;34m Score: {y}/{counter+1}\n")
-
+                    time.sleep(1)
                 endTime = datetime.datetime.now()
-                final_score = f"\n \033[1;34m Final Score: {y}/{x}\n"
-                print("\033[1;37m ***********************")
+                final_score = f"\033[1;34m Final Score: {y}/{x}"
+
+                clear_console()
+                print("\033[1;37m===============================================")
+                print("ADDITION     ")
+                print("\033[1;37m===============================================")
                 print(final_score)
-                print("\033[1;37m ***********************")
+                print("\033[1;37m===============================================")
                 f2.write(f"{yourname},{y}/{x},{startTime}\n")
 
         case 2:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            clear_console()
 
             print("1 - Beginner (0-5)")
             print("2 - Easy (0-10)")
@@ -191,7 +195,7 @@ while exit == 'n':
                 f2.write(f"{yourname},{y}/{x},{startTime}\n")
 
         case 3:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            clear_console()
 
             print("1 - Beginner (0-5)")
             print("2 - Easy (0-10)")
@@ -271,7 +275,7 @@ while exit == 'n':
                 f2.write(f"{yourname},{y}/{x},{startTime}\n")
 
         case 4:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            clear_console()
 
             print("1 - Beginner (0-5)")
             print("2 - Easy (0-10)")
@@ -355,7 +359,7 @@ while exit == 'n':
 
         
         case 5:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            clear_console()
             print("\n\033[1;31mYou chose counting. Lets Go!\n")
 
             #Configuration
@@ -395,5 +399,5 @@ while exit == 'n':
     print("\033[1;34m")
     exit = input("\n\033[1;37mDo you want to exit the game? (y/n): ")
     if exit.lower() == 'y':
-        print("\033[1;37mThank you for playing.\n")
+        goodbye_screen()
         break
